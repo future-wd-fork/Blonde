@@ -19,6 +19,7 @@
                     <div id="tags">
                         <span class="icon-local_offer mr-1"></span>
                         {{ range $i, $e := . }}
+                        {{ if gt $i 0}} | {{ end }}<a href="{{ "tags" | absURL }}/{{ . | urlize }}">{{ . | humanize }}</a>
                         {{ end }}
                     </div>
                     {{ end }}
