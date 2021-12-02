@@ -13,7 +13,7 @@
             <aside id="meta">
                 <div>
                     <section>
-                        <h4 id="date"><span class="icon-access_time mr-2"></span>{{ .Date.Format "2006/01/02" }} </h4>
+                        <h4 id="date"><span class="icon-access_time mr-2"></span>{{ .Date.Format .Site.Params.date_format }} </h4>
                     </section>
                     {{ with .Params.tags }}
                     <div id="tags">
