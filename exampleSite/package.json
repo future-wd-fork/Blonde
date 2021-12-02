@@ -7,7 +7,12 @@
     "author": "wamo <ainznino@pm.me>",
     "license": "MIT",
     "scripts": {
-        "start": "hugo --gc"
+      "dev": "hugo server --gc --disableFastRender",
+      "dev:drafts": "hugo server --gc --disableFastRender --buildFuture --buildDrafts",
+      "build": "hugo --gc --cleanDestinationDir --minify",
+      "start:dev": "hugo server --gc --disableFastRender --renderToDisk  --cleanDestinationDir",
+      "start:prod": "hugo server --gc --disableFastRender --renderToDisk  --cleanDestinationDir --minify --environment production",
+      "npm-check": "npm-check -u"
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "^4.0.3",
