@@ -26,10 +26,8 @@
                 </div>
             </aside>
             <hr class="my-2">
-            <div class="content mt-5">{{.Description}}</div>
-            {{ with (index .Params.images 0) }}
-            {{ $img := $.Resources.GetMatch . }}
-            <img class="py-4" src="{{ $img.RelPermalink | relURL }}">
+            {{ if .Params.image }}
+            <img class="py-4" src="{{ .Params.image | absURL }}">
             {{ end }}
             <div class="content mt-5">{{.Content}}</div>
             <aside id="meta">
