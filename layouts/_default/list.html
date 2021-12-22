@@ -1,7 +1,6 @@
 {{ define "header_css" }}{{ end }}
 
 {{ define "main" }}
-<div class="grid grid-cols-3 gap-4">
   <h2 class="text-4xl dark:text-white">{{if not .IsHome}}{{ humanize .Title }}{{end}}</h2>
   {{if .IsHome}}
   {{.Scratch.Set "Paginator" (.Paginate (where .Site.RegularPages "Type" "in" site.Params.mainSections)
@@ -12,9 +11,28 @@
   {{$paginator:=(.Scratch.Get "Paginator")}}
   {{ range $paginator.Pages }}
   <a href="{{.RelPermalink}}">
-    {{ .Render "summary" }}
+    <div class="bg-black p-3 ">
+      {{ if (and .Site.Params.post.thumbnail .Params.images) }}
+      {{ with (index .Params.images 0) }}
+      {{ $img := $.Resources.GetMatch . }}
+      <img alt="{{ .Title }}" id="thumb" class="img-fluid" src="{{ $img.RelPermalink | relURL }}" />
+      {{ else }}
+      {{ if .Site.Params.post.noimage }}
+      <img alt="thumbnail" id="thumb"
+        class="lg:{{ .Site.Params.post.thumbnail_width }} lg:{{ .Site.Params.post.thumbnail_height }}" src="{{ "/img/default.jpg" | relURL }}">
+      {{ end }}
+      {{ end }}
+      {{ end }}
+      <div class="relative pl-4 p-2 justify-between leading-normal max-w-full w-full">
+        <div class="text-gray-900 font-bold text-xl mb-2 dark:text-white">{{ .Title }}</div>
+        <p class="text-gray-700 text-base pb-5 dark:text-gray-300">{{ substr .Summary 0 130 | plainify | htmlUnescape}}...
+        </p>
+        <p class="text-sm text-gray-600 absolute items-center right-0 bottom-0 dark:text-gray-400">
+          <time><span class="icon-access_time mr-1"></span>{{ .Date.Format .Site.Params.date_format }}</time>
+        </p>
+      </div>
+    </div>
   </a>
   {{ end }}
   {{ partial "paginator.html" . }}
-</div>
 {{ end }}
